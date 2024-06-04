@@ -1,13 +1,36 @@
 
 import java.util.InputMismatchException;
 import java.util.Scanner;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class AnalisandoCandidatos {
     public static void main(String[] args) {
-        analisarCandidato();
+        selecionarCandidato();
     }
 
 
+    static void selecionarCandidato(){
+        String [] candidatos = {"FELIPE","MÁRCIA","JULIA","PAULO","AUGUSTO","MÔNICA","FABRÍCIO","MIRELA","DANIELA","JORGE"};
+        int candidatos_Selecionados = 0;
+        int candidato_Atual = 0;
+
+        while (candidatos_Selecionados<5 && candidato_Atual < candidatos.length){
+            String candidato = candidatos[candidato_Atual];
+            double valor_Pretendido = ValorPretendido();
+            System.out.println("O valor pretendido do candidato: "+candidato+" é: R$"+valor_Pretendido);
+            
+            if(valor_Pretendido <=2000){
+                System.out.println("Candidato selecionado.");
+                candidatos_Selecionados+=1;
+            }
+            candidato_Atual+=1;
+        }
+        System.out.println();
+    }
+
+    static double ValorPretendido(){
+        return ThreadLocalRandom.current().nextDouble(1800,2200);
+    }
     static void analisarCandidato(){
         Scanner scanner = new Scanner(System.in);
         try {
