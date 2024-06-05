@@ -1,4 +1,5 @@
 
+import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 import java.util.concurrent.ThreadLocalRandom;
@@ -8,29 +9,50 @@ public class AnalisandoCandidatos {
         selecionarCandidato();
     }
 
-
     static void selecionarCandidato(){
         String [] candidatos = {"FELIPE","MÁRCIA","JULIA","PAULO","AUGUSTO","MÔNICA","FABRÍCIO","MIRELA","DANIELA","JORGE"};
         int candidatos_Selecionados = 0;
         int candidato_Atual = 0;
+        ArrayList<String> lista_Selecionados = new ArrayList<>();
 
         while (candidatos_Selecionados<5 && candidato_Atual < candidatos.length){
             String candidato = candidatos[candidato_Atual];
             double valor_Pretendido = ValorPretendido();
             System.out.println("O valor pretendido do candidato: "+candidato+" é: R$"+valor_Pretendido);
-            
+
             if(valor_Pretendido <=2000){
                 System.out.println("Candidato selecionado.");
+                System.out.println();
                 candidatos_Selecionados+=1;
+                lista_Selecionados.add(candidato);
             }
             candidato_Atual+=1;
         }
-        System.out.println();
+        imprimirSelecionados(lista_Selecionados);
+
+
     }
 
     static double ValorPretendido(){
         return ThreadLocalRandom.current().nextDouble(1800,2200);
     }
+
+    static void imprimirSelecionados(ArrayList<String> candidatos){
+        System.out.println("Imprimindo a lista de candidatos informando o indice do elemento...");
+        System.out.println();
+        System.out.println("Aqui segue a lista de todos os selecionados: ");
+
+        for(int indice = 0; indice<candidatos.size();indice++){
+            System.out.println("O candidato na posição "+(indice+1)+" é o candidato "+ candidatos.get(indice));
+            System.out.println();
+        }
+        //Forma abrevida de iteração for each:
+        for(String candidatoSelecionado : candidatos){
+           System.out.println( "O candidato selecionado foi: "+candidatoSelecionado);
+           System.out.println("-----------");
+        }
+    }
+
     static void analisarCandidato(){
         Scanner scanner = new Scanner(System.in);
         try {
