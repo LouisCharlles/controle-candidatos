@@ -1,4 +1,3 @@
-
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -29,6 +28,7 @@ public class AnalisandoCandidatos {
             candidato_Atual+=1;
         }
         imprimirSelecionados(lista_Selecionados);
+        fazerLigacao(lista_Selecionados);
 
 
     }
@@ -48,11 +48,41 @@ public class AnalisandoCandidatos {
         }
         //Forma abrevida de iteração for each:
         for(String candidatoSelecionado : candidatos){
-           System.out.println( "O candidato selecionado foi: "+candidatoSelecionado);
-           System.out.println("-----------");
+            System.out.println( "O candidato selecionado foi: "+candidatoSelecionado);
+            System.out.println("-----------");
         }
     }
 
+    static int ligacao(){
+        return ThreadLocalRandom.current().nextInt(0,2);
+    }
+
+    static void fazerLigacao(ArrayList<String> candidatos){
+        int contador = 0;
+        int tentativas = 0;
+        while (contador< candidatos.size()){
+            for(int i=0;i<3;i++){
+                int resultadoLigacao = ligacao();
+                tentativas+=1;
+
+                if(resultadoLigacao == 0){
+                    if(tentativas==3){
+                        System.out.println("N ão foi possível contatar o candidato "+candidatos.get(contador));
+                        System.out.println("Passando para o próximo...");
+                        tentativas=0;
+                        System.out.println();
+                        break;
+                    }
+                }
+                else {
+                    System.out.println("Candidato "+candidatos.get(contador)+" atendeu depois de "+tentativas+" tentativas.");
+                    tentativas=0;
+                    break;
+                }
+            }contador+=1;
+
+        }System.out.println("PROCESSO FINALIZADO.");
+    }
     static void analisarCandidato(){
         Scanner scanner = new Scanner(System.in);
         try {
